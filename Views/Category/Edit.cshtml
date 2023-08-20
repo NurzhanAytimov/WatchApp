@@ -1,0 +1,95 @@
+﻿@model WatchApp.Models.Category
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заказа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-add {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+        }
+
+        .btn-back {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Редактирование</h1>
+    <div class="form-container">
+        <form method="post">
+            <input asp-for="Id" hidden/>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Наименование</label>
+                <input asp-for="Name" type="text" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DisplayOrder" class="form-label">Номер заказа</label>
+                <input asp-for="DisplayOrder" type="text" class="form-control">
+                <span asp-validation-for="DisplayOrder" class="text=danger"></span>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-add">Редактировать</button>
+                <a asp-action="Index" class="btn btn-back">Назад</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
+
+
+

@@ -1,0 +1,142 @@
+﻿@model WatchApp.Models.ViewModel.ProductViewModel
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заказа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-add {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+        }
+
+        .btn-back {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <h1>Добавить товар</h1>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="watch.Name" class="form-label">Наименование</label>
+                <input asp-for="watch.Name" type="text" class="form-control">
+                <span asp-validation-for="watch.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="watch.Price" class="form-label">Цена</label>
+                <input asp-for="watch.Price" type="text" class="form-control">
+                <span asp-validation-for="watch.Price" class="text=danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="watch.ShortDesc" class="form-label">Краткое описание</label>
+                <input asp-for="watch.ShortDesc" type="text" class="form-control">
+                <span asp-validation-for="watch.ShortDesc" class="text=danger"></span>
+            </div>
+             <div class="mb-3">
+                <label asp-for="watch.Description" class="form-label">Описание</label>
+                <textarea asp-for="watch.Description" type="text" class="form-control" id="summernote"></textarea>
+                <span asp-validation-for="watch.Description" class="text=danger"></span>
+            </div>
+            <div class="mb-3">
+                Image
+                <input type="file" name="files" id="uploadBox" multiple class="form-control">
+                
+            </div>
+            <div class="mb-3">
+                <label asp-for="watch.CategoryId" class="form-label">Тип категории</label>
+                <select asp-for="watch.CategoryId" asp-items="@Model.selectListItems" class="form-control">
+                    <option disabled selected >--Выбрать категорию--</option>
+                </select>
+                <span asp-validation-for="watch.CategoryId" class="text=danger"></span>
+            </div>
+
+             <div class="mb-3">
+                <label asp-for="watch.ApplicationTypeId" class="form-label">Вид часов</label>
+                <select asp-for="watch.ApplicationTypeId" asp-items="@Model.applicationTypeSelectList" class="form-control">
+                    <option disabled selected >--Выбрать вид часов--</option>
+                </select>
+                <span asp-validation-for="watch.ApplicationTypeId" class="text=danger"></span>
+            </div>
+
+
+            <div class="btn-container">
+                <button type="submit" onclick="return validateInput()" class="btn btn-add">Добавить</button>
+                <a asp-action="Index" class="btn btn-back">Назад</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 150
+            });
+        });
+        function validateInput(){
+            if (document.getElementById("uploadBox").value == ""){
+                swal({
+                    title: "Ошибка!",
+                    text: "Пожалуйста загрузите изоброжение!",
+                    icon: "Изоброжение успешно загружено",
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
+
